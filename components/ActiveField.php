@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\gii\components;
+namespace pvsaintpe\gii\components;
 
-use yii\gii\Generator;
+use pvsaintpe\gii\Generator;
 use yii\helpers\Json;
 
 /**

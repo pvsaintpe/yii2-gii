@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$asset = yii\gii\GiiAsset::register($this);
+$asset = pvsaintpe\gii\GiiAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

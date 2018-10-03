@@ -3,14 +3,6 @@
     "description": "The Gii extension for the Yii framework",
     "keywords": ["yii2", "gii", "code generator"],
     "type": "yii2-extension",
-    "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2-gii/issues",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2-gii"
-    },
     "authors": [
         {
             "name": "Veselov Pavel",
@@ -26,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "yii\\gii\\": ""
+            "pvsaintpe\\gii\\": ""
         }
     },
     "extra": {

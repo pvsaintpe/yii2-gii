@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\gii;
+namespace pvsaintpe\gii;
 
 use Yii;
 use yii\base\BaseObject;
-use yii\gii\components\DiffRendererHtmlInline;
+use pvsaintpe\gii\components\DiffRendererHtmlInline;
 use yii\helpers\Html;
 
 /**
