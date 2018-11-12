@@ -246,20 +246,21 @@ class Generator extends \pvsaintpe\gii\Generator
     public function generateLabels($table)
     {
         $labels = [];
-        foreach ($table->columns as $column) {
-            if ($this->generateLabelsFromComments && !empty($column->comment)) {
-                $labels[$column->name] = $column->comment;
-            } elseif (!strcasecmp($column->name, 'id')) {
-                $labels[$column->name] = 'ID';
-            } else {
-                $label = Inflector::camel2words($column->name);
-                if (!empty($label) && substr_compare($label, ' id', -3, 3, true) === 0) {
-                    $label = substr($label, 0, -3) . ' ID';
+        if (property_exists($table, 'columns')) {
+            foreach ($table->columns as $column) {
+                if ($this->generateLabelsFromComments && !empty($column->comment)) {
+                    $labels[$column->name] = $column->comment;
+                } elseif (!strcasecmp($column->name, 'id')) {
+                    $labels[$column->name] = 'ID';
+                } else {
+                    $label = Inflector::camel2words($column->name);
+                    if (!empty($label) && substr_compare($label, ' id', -3, 3, true) === 0) {
+                        $label = substr($label, 0, -3) . ' ID';
+                    }
+                    $labels[$column->name] = $label;
                 }
-                $labels[$column->name] = $label;
             }
         }
-
         return $labels;
     }
 
