@@ -11,9 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "yiisoft/yii2": ">=2.0.15",
-        "yiisoft/yii2-bootstrap": "~2.0",
-        "phpspec/php-diff": ">=1.0.2",
+        "yiisoft/yii2": "2.*",
+        "yiisoft/yii2-bootstrap": "2.*",
+        "phpspec/php-diff": "1.*",
         "bower-asset/typeahead.js": "0.10.* | ~0.11.0"
     },
     "autoload": {
