@@ -210,6 +210,7 @@ class Generator extends \pvsaintpe\gii\Generator
             $modelClassName = $this->generateClassName($tableName);
             $queryClassName = ($this->generateQuery) ? $this->generateQueryClassName($modelClassName) : false;
             $tableSchema = $db->getTableSchema($tableName);
+
             $params = [
                 'tableName' => $tableName,
                 'className' => $modelClassName,
@@ -218,7 +219,10 @@ class Generator extends \pvsaintpe\gii\Generator
                 'labels' => $this->generateLabels($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
+                'isDictionary' => $this->isDictionary($tableSchema),
+                'constants' => $this->generateConstants($db, $tableSchema, $tableName),
             ];
+
             $files[] = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $modelClassName . '.php',
                 $this->render('model.php', $params)
@@ -849,5 +853,45 @@ class Generator extends \pvsaintpe\gii\Generator
         }
 
         return false;
+    }
+
+    /**
+     * @param TableSchema $tableSchema
+     * @return bool
+     */
+    protected function isDictionary($tableSchema)
+    {
+        if (in_array('code', $tableSchema->columnNames) && in_array('name', $tableSchema->columnNames)) {
+            if (count($tableSchema->primaryKey) == 1 && $tableSchema->primaryKey[0] == 'id') {
+                $pkOptions = $tableSchema->columns['id'];
+
+                if ($pkOptions->dbType === 'tinyint(3) unsigned') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param TableSchema $tableSchema
+     * @param $tableName
+     * @param Connection $db
+     * @return array
+     */
+    protected function generateConstants($db, $tableSchema, $tableName)
+    {
+        $constants = [];
+
+        if ($this->isDictionary($tableSchema)) {
+            $data = $db->createCommand("SELECT * FROM $tableName")->queryAll();
+
+            foreach ($data as $item) {
+                $constants[$item['id']] = ['code' => strtoupper($item['code']), 'name' => $item['name']];
+            }
+        }
+
+        return $constants;
     }
 }
