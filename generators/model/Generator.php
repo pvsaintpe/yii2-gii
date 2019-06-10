@@ -189,12 +189,12 @@ class Generator extends \pvsaintpe\gii\Generator
      */
     public function getTablePrefix()
     {
-        $db = $this->getDbConnection();
-        if ($db !== null) {
-            return $db->tablePrefix;
-        } else {
-            return '';
-        }
+      $db = $this->getDbConnection();
+      if ($db !== null) {
+          return $db->tablePrefix;
+      } else {
+          return '';
+      }
     }
 
     /**
@@ -461,10 +461,8 @@ class Generator extends \pvsaintpe\gii\Generator
                         // Foreign key could point to non-existing table: https://github.com/yiisoft/yii2-gii/issues/34
                         continue;
                     }
-
                     unset($refs[0]);
                     $fks = array_keys($refs);
-
                     $refClassName = $this->generateClassName($refTable);
 
                     // Add relation for this table
